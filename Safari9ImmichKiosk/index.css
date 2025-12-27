@@ -112,7 +112,7 @@ i {
 .glass-tile {
     border: 0;
     background: rgba(75, 75, 75, 0.3);
-    box-shadow: inset -1px 2px 5px 0px rgba(220, 220, 220, 0.20);
+    box-shadow: inset -1px 2px 5px 0px rgba(220, 220, 220, 0.22);
     border-radius: 6px;
     color: white;
     padding: .7em 1em;
@@ -131,8 +131,8 @@ i {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0; 
 
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
 .location > small {

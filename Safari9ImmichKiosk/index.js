@@ -176,6 +176,7 @@ function loadAlbum(albumId) {
     function fetchAlbumAssets(onComplete) {
         var albumUrl = url("/api/albums/" + albumId);
         $.get(albumUrl, function (album) {
+            album.assets.sort(function () { return 0.5 - Math.random() });
             assets = album.assets;
             if (onComplete) {
                 onComplete()
