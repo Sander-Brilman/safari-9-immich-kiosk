@@ -120,7 +120,7 @@ function validateSettings(targetSettings, onValid, onInvalid) {
         return;
     }
 
-    $.get(apiUrl("/albums"), function(response) {
+    $.get(targetSettings.immichServerUrl, function(response) {
         onValid()
     }).catch(function(e) {
         onInvalid()
@@ -535,6 +535,8 @@ class SettingsView extends ViewBase {
                             }
                         );
                     } catch (error) {
+                        console.error(error);
+                        
                         messageBox.showError(`Failed to import settings from json input, reason: ${error.message}`)
                     }    
                     return;
