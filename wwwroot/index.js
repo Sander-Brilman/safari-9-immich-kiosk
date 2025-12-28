@@ -109,7 +109,6 @@ function saveState() {
  */
 function validateSettings(targetSettings, onValid, onInvalid) {
 
-
     if (targetSettings.immichServerUrl == undefined || targetSettings.immichServerUrl.length == 0) {
         onInvalid();
         return;
@@ -120,12 +119,6 @@ function validateSettings(targetSettings, onValid, onInvalid) {
         return;
     }
 
-    $.get(targetSettings.immichServerUrl, function(response) {
-        onValid()
-    }).catch(function(e) {
-        onInvalid()
-    })
-
     if (targetSettings.animationSpeed == undefined || parseInt(targetSettings.animationSpeed) == NaN) {
         onInvalid();
         return;
@@ -134,8 +127,6 @@ function validateSettings(targetSettings, onValid, onInvalid) {
     if (typeof targetSettings.animationSpeed == "string") {
         targetSettings.animationSpeed = parseInt(targetSettings.animationSpeed);
     }
-
-
 
     if (targetSettings.slideDuration == undefined || parseInt(targetSettings.slideDuration) == NaN) {
         onInvalid();
@@ -146,7 +137,11 @@ function validateSettings(targetSettings, onValid, onInvalid) {
         targetSettings.slideDuration = parseInt(targetSettings.slideDuration);
     }
 
-    onValid();
+    $.get(targetSettings.immichServerUrl, function(response) {
+        onValid()
+    }).catch(function(e) {
+        onInvalid()
+    })
 }
 
 
