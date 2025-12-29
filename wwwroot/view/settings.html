@@ -13,7 +13,7 @@
 
         <label class="glass-tile field">
             <img src="asset/immich-logo.png" width="30" height="30" alt="immich logo">
-            <i class="bi bi-key-fill"></i>
+            <i class="bi bi-key"></i>
             <span>
                 Immich api key
                 <input type="text" id="immich-api-key">
@@ -55,6 +55,7 @@
         </label>
 
         <label class="glass-tile field">
+            <i class="bi bi-text-left"></i>
             <i class="bi bi-braces"></i>
             <span>
                 Direct json text:
@@ -65,15 +66,18 @@
         <button class="glass-tile" type="submit"><i class="bi bi-download"></i> Import</button>
     </form>
 
-    <form id="advanced-form" onsubmit="event.preventDefault()">
+    <form id="advanced-form">
         <h2><i class="bi bi-code-slash"></i> Advanced settings</h2>
         <label class="glass-tile field">
             <i class="bi bi-bug"></i>
+            <i class="bi bi-bug-fill"></i>
             <span>
-                Enable devtools
+                Enable devtools (requires reload)
                 <input type="checkbox" id="enable-devtools">
             </span>
         </label>
+
+        <button class="glass-tile" type="submit"><i class="bi bi-arrow-clockwise"></i> Reload page</button>
     </form>
 </div>
 

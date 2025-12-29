@@ -569,7 +569,6 @@ class SettingsView extends ViewBase {
                 } else {
                     localStorage.removeItem("enableDevtools");
                 }
-                window.location.reload();
             })
 
             onComplete(view)
