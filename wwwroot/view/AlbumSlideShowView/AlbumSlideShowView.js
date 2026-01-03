@@ -1,4 +1,19 @@
 
+var months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+]
+
 class AlbumSlideShowView extends ViewBase {
 
     /**
@@ -25,32 +40,29 @@ class AlbumSlideShowView extends ViewBase {
     }
 
     createSingleAssetSlide(asset) {
-        if (asset == undefined) {
+        if (asset == undefined || asset.exifInfo == undefined) {
             return;
         }
+        var slideContainer = $(`<div class="slide">`)
 
         var srcUrl = this.immichClient.url(`/assets/${asset.id}/thumbnail`, "size=preview");
-        var img = $(`<div class="img content-bottom">`).css('background-image', 'url(' + srcUrl + ')');
 
-        var months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ]
+        var img = $(`<div class="img">`)
+            .css('background-image', 'url(' + srcUrl + ')')
+            .css('transition-duration', `${settingsRepo.get().slideDuration * 2}ms`);
+
+        slideContainer.append(img);
+
+        setTimeout(function () {
+            var backgroundSize = "scale(1.15)"
+            img.css('transform', backgroundSize)
+        }, 100);
+
 
         var year = new Date(asset.localDateTime).getFullYear();
         var month = months[new Date(asset.localDateTime).getMonth()];
 
-        var hasLocationInfo = asset.exifInfo == undefined || asset.exifInfo.city == undefined || asset.exifInfo.country == undefined;
+        var hasLocationInfo = asset.exifInfo.city == undefined || asset.exifInfo.country == undefined;
         if (hasLocationInfo) {
             var infoCard = $(`
                 <h3 class="glass-tile info-card">
@@ -58,7 +70,7 @@ class AlbumSlideShowView extends ViewBase {
                 </h3>
             `);
 
-            return img.append(infoCard);
+            return slideContainer.append(infoCard);
         }
 
         var infoCard = $(`
@@ -71,7 +83,7 @@ class AlbumSlideShowView extends ViewBase {
             </h3>
         `);
 
-        return img.append(infoCard);
+        return slideContainer.append(infoCard);
     }
 
 
@@ -97,6 +109,10 @@ class AlbumSlideShowView extends ViewBase {
             });
     }
 
+
+
+
+
     /**
      * @param {number} assetIndex 
      */
@@ -109,6 +125,9 @@ class AlbumSlideShowView extends ViewBase {
         assetIndex = assetIndex % this.assets.length;
         return assetIndex;
     }
+
+
+
 
     /**
      * @param {number} assetIndex 
@@ -128,7 +147,11 @@ class AlbumSlideShowView extends ViewBase {
     removeTopAssetFromViewStack() {
         var settings = settingsRepo.get();
         this.slideShowContainer.children().last().fadeOut(settings.animationSpeed, function () { this.remove() });
+
     }
+
+
+
 
     setIntervals() {
         var settings = settingsRepo.get();
@@ -182,8 +205,8 @@ class AlbumSlideShowView extends ViewBase {
         view.find("#controls-container").append([previousButton, nextButton]);
 
         this.setIntervals();
-        this.refreshAssets_Then(function () { 
-            thisRef.addAssetToViewStack(thisRef.currentAssetIndex); 
+        this.refreshAssets_Then(function () {
+            thisRef.addAssetToViewStack(thisRef.currentAssetIndex);
             onComplete();
         });
 
