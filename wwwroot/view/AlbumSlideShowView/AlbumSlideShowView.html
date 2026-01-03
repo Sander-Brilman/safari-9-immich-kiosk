@@ -1,0 +1,91 @@
+<div id="AlbumSlideShowView">
+    <section id="controls-container">
+
+    </section>
+
+    <section id="slide-show-container">
+
+    </section>
+</div>
+
+
+<style>
+
+    #controls-container {
+        padding: 1em;
+        
+    }
+
+    #AlbumSlideShowView,
+    #slide-show-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    #slide-show-container>* {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+
+    #slide-show-container .img {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        transition: background-size 7s linear;
+    }
+
+
+    .info-card {
+        font-weight: bolder;
+
+        padding: .3em .6em;
+        font-size: 1.8rem;
+
+        margin: .5em;
+        margin-left: .5em;
+
+        /* border-top-left-radius: 0;
+    border-bottom-left-radius: 0;  */
+
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+
+
+
+
+
+    .location {
+        display: flex;
+        padding: .75em;
+    }
+
+    .location span {
+        line-height: 30px;
+    }
+
+    .location i {
+        font-size: 1.1em;
+        margin-right: .35em;
+    }
+
+
+
+
+
+    .time {
+        line-height: 0;
+        margin-bottom: 1px;
+    }
+</style>
