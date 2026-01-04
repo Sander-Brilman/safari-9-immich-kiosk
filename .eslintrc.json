@@ -1,0 +1,24 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "no-const-assign": "error",
+    "no-const": "error",
+    "no-let": "error",
+    "prefer-arrow-callback": ["error", { "allowNamedFunctions": false }],
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "ArrowFunctionExpression",
+        "message": "Arrow functions are not allowed."
+      }
+    ]
+  }
+}
