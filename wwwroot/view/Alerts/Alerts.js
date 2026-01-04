@@ -22,9 +22,6 @@ class AlertsView extends ViewBase {
         this.view.append(alertInstance);
 
         setTimeout(function () {
-            console.log("here", alertInstance);
-            
-            alertInstance.remove();
         }, 1000);
     }
 

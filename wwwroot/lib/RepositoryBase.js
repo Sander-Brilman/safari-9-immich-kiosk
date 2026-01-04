@@ -44,12 +44,14 @@ class StorageRepository {
      * @param {Object} obj 
      */
     save(obj) {
-        
-
         this.instance = obj;
 
         for (var key in obj) {
-            localStorage.setItem(`${this.localStoragePrefix}${key}`, obj[key]);
+            try {
+                localStorage.setItem(`${this.localStoragePrefix}${key}`, obj[key]);
+            } catch (error) {
+                console.error(`failed to set localstorage item ${this.localStoragePrefix}${key}. [value] [reason]`, obj[key], error);
+            }
         }
     }
 }
@@ -64,7 +66,9 @@ class Settings {
     static fromObject(targetObject) {
         var instance = Settings.defaultInstance();
         for (var key in instance) {
-            instance[key] = targetObject[key];
+            if (targetObject[key] != undefined) {
+                instance[key] = targetObject[key];
+            }
         }
         return instance;
     }

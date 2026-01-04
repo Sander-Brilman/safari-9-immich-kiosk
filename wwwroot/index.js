@@ -53,9 +53,6 @@ function initNormalStartup() {
     openView(gridView);
 }
 
-
-console.log(settingsRepo.getInstance());
-
 function init() {
     settingsRepo.getInstance().validate(
         function () {// valid settings, statup as normal
@@ -63,8 +60,8 @@ function init() {
             initNormalStartup()
         },
 
-        function () {// invalid, try to fetch from server
-            console.log(`invaild local settings, forcing settings view`);
+        function (errors) {// invalid, try to fetch from server
+            console.log(`invaild local settings, forcing settings view, errors: `, errors);
             initForcedSettingsView()
         }
     );

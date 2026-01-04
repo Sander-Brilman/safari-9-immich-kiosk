@@ -29,7 +29,6 @@ class SettingsView extends ViewBase {
         var zoomMultiplier = form.find("#zoom-multiplier").val(settings.zoomMultiplier);
 
         form.submit(function (e) {
-            console.log("settings form submit");
             e.preventDefault();
 
             /** @type {Settings} */
@@ -41,8 +40,7 @@ class SettingsView extends ViewBase {
                 parseFloat(zoomMultiplier.val().toString())
             );
 
-            console.log("new settings", newSettings);
-
+            console.log("form submit, new settings:", newSettings);
 
             newSettings.validate(
                 function () {// valid
@@ -71,7 +69,6 @@ class SettingsView extends ViewBase {
             console.log("import form submit");
             e.preventDefault();
 
-
             var jsonInputValue = jsonTextInput.val();
             var jsonInputIsFilled = typeof jsonInputValue == "string" && jsonInputValue.length > 0; 
 
@@ -99,7 +96,12 @@ class SettingsView extends ViewBase {
                 return;
             }
 
+            
             state.configFileUrl = importUrlInput.val().toString();
+
+            console.log(`importing settings from remote ${state.configFileUrl}`);
+            console.log(`saving application state`, state);
+            
             thisRef.stateRepo.save(state);
 
             $.get(state.configFileUrl, function (fetchedSettings) {
