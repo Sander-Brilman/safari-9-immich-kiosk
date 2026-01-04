@@ -51,7 +51,8 @@ class Settings {
             object.immichApiKey,
             object.immichServerUrl,
             object.animationSpeed,
-            object.slideDuration
+            object.slideDuration,
+            object.zoomMultiplier
         );
     }
 
@@ -73,7 +74,8 @@ class Settings {
             "",
             "",
             1000,
-            30000
+            30000,
+            1.25,
         )
     }
 
@@ -82,12 +84,14 @@ class Settings {
      * @param {string} immichServerUrl 
      * @param {number} animationSpeed 
      * @param {number} slideDuration 
+     * @param {number} zoomMultiplier 
      */
-    constructor(immichApiKey, immichServerUrl, animationSpeed, slideDuration) {
+    constructor(immichApiKey, immichServerUrl, animationSpeed, slideDuration, zoomMultiplier) {
         this.immichApiKey = immichApiKey;
         this.immichServerUrl = immichServerUrl;
         this.animationSpeed = animationSpeed;
         this.slideDuration = slideDuration;
+        this.zoomMultiplier = zoomMultiplier;
     }
 
     /**
@@ -107,6 +111,11 @@ class Settings {
         }
 
         if (this.animationSpeed == undefined || isNaN(this.animationSpeed)) {
+            onInvalid();
+            return;
+        }
+
+        if (this.zoomMultiplier == undefined || isNaN(this.zoomMultiplier)) {
             onInvalid();
             return;
         }

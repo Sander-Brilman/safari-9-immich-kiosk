@@ -26,6 +26,7 @@ class SettingsView extends ViewBase {
         var apiKeyInput = form.find("#immich-api-key").val(settings.immichApiKey);
         var animationSpeedInput = form.find("#animation-speed").val(settings.animationSpeed);
         var slideDurationInput = form.find("#slide-duration").val(settings.slideDuration);
+        var zoomMultiplier = form.find("#zoom-multiplier").val(settings.zoomMultiplier);
 
         form.submit(function (e) {
             console.log("settings form submit");
@@ -36,7 +37,8 @@ class SettingsView extends ViewBase {
                 apiKeyInput.val().toString().trim(),
                 serverUrlInput.val().toString().trim(),
                 parseInt(animationSpeedInput.val().toString()),
-                parseInt(slideDurationInput.val().toString())
+                parseInt(slideDurationInput.val().toString()),
+                parseFloat(zoomMultiplier.val().toString())
             );
 
             console.log("new settings", newSettings);

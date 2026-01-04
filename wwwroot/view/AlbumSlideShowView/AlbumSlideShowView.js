@@ -54,8 +54,8 @@ class AlbumSlideShowView extends ViewBase {
         slideContainer.append(img);
 
         setTimeout(function () {
-            var backgroundSize = "scale(1.15)"
-            img.css('transform', backgroundSize)
+            var newBackgroundSize = `scale(${settingsRepo.getInstance().zoomMultiplier})`;
+            img.css('transform', newBackgroundSize)
         }, 100);
 
 
