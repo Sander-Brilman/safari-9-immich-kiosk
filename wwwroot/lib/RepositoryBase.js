@@ -2,10 +2,10 @@
 class StorageRepository {
 
     /**
-     * @param {string} localStorageKey 
+     * @param {string} localStoragePrefix 
      */
-    constructor(localStorageKey) {
-        this.localStorageKey = localStorageKey;
+    constructor(localStoragePrefix) {
+        this.localStoragePrefix = `${localStoragePrefix}_`;
 
         /** @type {object | null} */
         this.instance = null;
@@ -17,13 +17,26 @@ class StorageRepository {
         }
 
         try {
-            this.instance = JSON.parse(localStorage.getItem(this.localStorageKey) || "null");
+            this.instance = {};
+            
+            for (var key in localStorage) {
+                
+                var startsWithPrefix = key.indexOf(this.localStoragePrefix) == 0;
+                if (startsWithPrefix) {
+                    this.instance[key.replace(this.localStoragePrefix, "")] = localStorage.getItem(key);
+                }
+            }
+
+            this.instance = Settings.fromObject(this.instance);
+
+            return this.instance
+            
         } catch (error) {
             console.error(error);
             return null;
         }
 
-        return this.instance;
+
     }
 
     /**
@@ -31,7 +44,10 @@ class StorageRepository {
      */
     save(obj) {
         this.instance = obj;
-        localStorage.setItem(this.localStorageKey, JSON.stringify(obj))
+
+        for (var key in obj) {
+            localStorage.setItem(`${this.localStoragePrefix}_${key}`, obj[key]);
+        }
     }
 }
 
@@ -40,12 +56,12 @@ class StorageRepository {
 class Settings {
 
     /**
-     * @param {object} object 
+     * @param {object} targetObject 
      */
-    static fromObject(object) {
+    static fromObject(targetObject) {
         var instance = Settings.defaultInstance();
         for (var key in instance) {
-            instance[key] = object[key];
+            instance[key] = targetObject[key];
         }
         return instance;
     }
@@ -155,6 +171,7 @@ class SettingsRepository extends StorageRepository {
         }
 
         this.instance = super.getInstance();
+        
         if (this.instance != undefined) {
             this.instance = Settings.fromObject(this.instance);
         } else {
