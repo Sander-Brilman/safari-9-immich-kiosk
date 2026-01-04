@@ -65,14 +65,17 @@ class SettingsView extends ViewBase {
         var state = this.stateRepo.getInstance();
 
         var importUrlInput = form.find("#import-url").val(state.configFileUrl);
-        var jsonTextInput = form.find('#json-text').val(JSON.stringify(this.settingsRepo.getInstance()));
-
+        var jsonTextInput = form.find('#json-text');
+        
         form.submit(function (e) {
             console.log("import form submit");
             e.preventDefault();
 
+
             var jsonInputValue = jsonTextInput.val();
-            if (jsonInputValue instanceof String && jsonInputValue.length > 0) {
+            var jsonInputIsFilled = typeof jsonInputValue == "string" && jsonInputValue.length > 0; 
+
+            if (jsonInputIsFilled) {
                 try {
                     var newSettings = Settings.fromJson(jsonInputValue.toString());
                     newSettings.validate(
@@ -91,11 +94,13 @@ class SettingsView extends ViewBase {
 
                     // messageBox.showError(`Failed to import settings from json input, reason: ${error.message}`)
                 }
+
+                
                 return;
             }
 
-            thisRef.stateRepo.getInstance().configFileUrl = importUrlInput.val().toString();
-            thisRef.stateRepo.save(thisRef.stateRepo.getInstance());
+            state.configFileUrl = importUrlInput.val().toString();
+            thisRef.stateRepo.save(state);
 
             $.get(state.configFileUrl, function (fetchedSettings) {
 

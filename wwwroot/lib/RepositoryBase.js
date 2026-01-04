@@ -12,6 +12,9 @@ class StorageRepository {
     }
 
     getInstance() {
+        
+
+                            
         if (this.instance != null) {
             return this.instance;
         }
@@ -27,8 +30,6 @@ class StorageRepository {
                 }
             }
 
-            this.instance = Settings.fromObject(this.instance);
-
             return this.instance
             
         } catch (error) {
@@ -43,6 +44,8 @@ class StorageRepository {
      * @param {Object} obj 
      */
     save(obj) {
+        
+
         this.instance = obj;
 
         for (var key in obj) {
@@ -106,27 +109,22 @@ class Settings {
 
     /**
      * @param {() => void} onValid 
-     * @param {() => void} onInvalid 
+     * @param {(errors: string[]) => void} onInvalid 
      */
     validate(onValid, onInvalid) {
 
         if (this.immichServerUrl == undefined || this.immichServerUrl.length == 0) {
-            onInvalid();
+            onInvalid(["server url cannot be empty"]);
             return;
         }
 
         if (this.immichApiKey == undefined || this.immichApiKey.length == 0) {
-            onInvalid();
+            onInvalid(["api key cannot be empty"]);
             return;
         }
 
         if (this.animationSpeed == undefined || isNaN(this.animationSpeed)) {
-            onInvalid();
-            return;
-        }
-
-        if (this.zoomMultiplier == undefined || isNaN(this.zoomMultiplier)) {
-            onInvalid();
+            onInvalid(["animation speed must be a number"]);
             return;
         }
 
@@ -134,8 +132,17 @@ class Settings {
             this.animationSpeed = parseInt(this.animationSpeed);
         }
 
+        if (this.zoomMultiplier == undefined || isNaN(this.zoomMultiplier)) {
+            onInvalid(["zoom multiplier must be a number"]);
+            return;
+        }
+
+        if (typeof this.zoomMultiplier == "string") {
+            this.zoomMultiplier = parseInt(this.zoomMultiplier);
+        }
+
         if (this.slideDuration == undefined || isNaN(this.slideDuration)) {
-            onInvalid();
+            onInvalid(["slide duration must be a number"]);
             return;
         }
 
@@ -170,7 +177,8 @@ class SettingsRepository extends StorageRepository {
             return this.instance;
         }
 
-        this.instance = super.getInstance();
+        this.instance = Settings.fromObject(super.getInstance());
+
         
         if (this.instance != undefined) {
             this.instance = Settings.fromObject(this.instance);
