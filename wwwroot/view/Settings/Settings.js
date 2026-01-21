@@ -31,10 +31,16 @@ class SettingsView extends ViewBase {
         form.submit(function (e) {
             e.preventDefault();
 
+            var serverUrl = serverUrlInput.val().toString().trim();
+
+            if (serverUrl.charAt(-1) == "/") {
+                serverUrl += "/"
+            }
+
             /** @type {Settings} */
             var newSettings = new Settings(
                 apiKeyInput.val().toString().trim(),
-                serverUrlInput.val().toString().trim(),
+                serverUrl,
                 parseInt(animationSpeedInput.val().toString()),
                 parseInt(slideDurationInput.val().toString()),
                 parseFloat(zoomMultiplier.val().toString())
