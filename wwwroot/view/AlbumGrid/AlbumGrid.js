@@ -24,7 +24,7 @@ class AlbumGridView extends ViewBase {
         var buttonGrid = view.filter(`.album-grid`);
         var thisRef = this;
 
-        $.get(this.immichClient.url("/albums"), function (albums) {
+        $.get(this.immichClient.apiUrl("/albums"), function (albums) {
 
             albums.forEach(function (album) {
 

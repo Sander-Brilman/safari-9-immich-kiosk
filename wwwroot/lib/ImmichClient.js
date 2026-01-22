@@ -21,7 +21,7 @@ class ImmichClient {
      * @param {string} path 
      * @param {string|undefined} [query=undefined] 
      */
-    url(path, query) {
+    apiUrl(path, query) {
         if (query == undefined) {
             query = "";
         }

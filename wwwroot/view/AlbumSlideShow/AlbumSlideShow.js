@@ -46,7 +46,7 @@ class AlbumSlideShowView extends ViewBase {
      */
     refreshAssets_Then(onComplete) {
         var thisRef = this;
-        var url = this.immichClient.url(`/albums/${this.albumId}`);
+        var url = this.immichClient.apiUrl(`/albums/${this.albumId}`);
 
         $.get(url, function (album) {
             album.assets.sort(function () { return 0.5 - Math.random() });

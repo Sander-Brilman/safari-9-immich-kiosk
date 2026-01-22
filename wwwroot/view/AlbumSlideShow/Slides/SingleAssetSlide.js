@@ -23,7 +23,7 @@ class SingleAssetSlide extends ViewBase {
     onInit(view, onComplete) {
         
         var thisRef = this;
-        var srcUrl = this.immichClient.url(`/assets/${this.asset.id}/thumbnail`, "size=preview");
+        var srcUrl = this.immichClient.apiUrl(`/assets/${this.asset.id}/thumbnail`, "size=preview");
         var img = view.filter('.img')
             .css('background-image', 'url(' + srcUrl + ')')
             .css('transition-duration', `${this.settings.slideDuration * 2}ms`);

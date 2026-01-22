@@ -33,9 +33,12 @@ class SettingsView extends ViewBase {
 
             var serverUrl = serverUrlInput.val().toString().trim();
 
-            if (serverUrl.charAt(-1) == "/") {
-                serverUrl += "/"
+            if (serverUrl[serverUrl.length - 1] == "/") {
+                serverUrl = serverUrl.substring(0, serverUrl.length - 1);
             }
+
+            console.log(serverUrl);
+            
 
             /** @type {Settings} */
             var newSettings = new Settings(
