@@ -13,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>
 
-        eruda.init();
 
         
         var localStorageBroken = false;
@@ -27,6 +26,7 @@
 
         var isDevEnv = localStorage.getItem("enableDevtools") == "true";
         if (localStorageBroken || isDevEnv) {
+            eruda.init();
 
             if (localStorageBroken) {
                 console.log('localStorage is broken', localStorageError);
