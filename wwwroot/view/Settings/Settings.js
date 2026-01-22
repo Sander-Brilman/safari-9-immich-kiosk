@@ -140,12 +140,12 @@ class SettingsView extends ViewBase {
      */
     _initAdvancedSettingForm(form) {
 
-        var value = (localStorage.getItem("enableDevtools") || "false");
-        var enableDevtoolsInput = form.find("#enable-devtools").attr("checked", value);
+        var value = localStorage.getItem("enableDevtools") == "true" ? true : false;
+        var enableDevtoolsInput = form.find("#enable-devtools").prop("checked", value);
 
         enableDevtoolsInput.on("change", function (e) {
             if (enableDevtoolsInput.is(":checked")) {
-                // localStorage.setItem("enableDevtools", "true")
+                localStorage.setItem("enableDevtools", "true")
             } else {
                 localStorage.removeItem("enableDevtools");
             }
